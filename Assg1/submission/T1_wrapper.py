@@ -3,10 +3,14 @@
 # trunc8 did this
 import time
 import subprocess
-import matplotlib.pyplot as plt
+import os
 
 start = time.time()
-f = open("outputDataT1.txt","w")
+file = "outputDataT1.txt"
+if os.path.exists(file):
+    os.remove(file) # To prevent appending
+
+f = open(file,"w")
 
 instances = ["../instances/i-1.txt", "../instances/i-2.txt", "../instances/i-3.txt"]
 algorithms = ["epsilon-greedy", "ucb", "kl-ucb", "thompson-sampling"]
