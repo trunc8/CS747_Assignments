@@ -25,9 +25,9 @@ def soln(reward_means, horizon, num_of_arms):
             beta_samples[a] = random.betavariate(arm_successes[a]+1, arm_fails[a]+1)
         arm = np.argmax(beta_samples)
         if pull_arm(reward_means, arm) == 1:
-            arm_successes[a] += 1
+            arm_successes[arm] += 1
             REW += 1
         else:
-            arm_fails[a] += 1
+            arm_fails[arm] += 1
     REG = horizon*max(reward_means) - REW
     return REG
