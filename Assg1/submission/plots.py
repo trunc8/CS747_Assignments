@@ -11,9 +11,9 @@ args = parser.parse_args()
 f = open(f"outputDataT{args.n}.txt", "r")
 
 instances = ["../instances/i-1.txt", "../instances/i-2.txt", "../instances/i-3.txt"]
-if n == 1:
+if args.n == '1':
     algorithms = ["epsilon-greedy", "ucb", "kl-ucb", "thompson-sampling"]
-elif n == 2:
+elif args.n == '2':
     algorithms = ["thompson-sampling", "thompson-sampling-with-hint"]
 horizons = [100, 400, 1600, 6400, 25600, 102400]
 
@@ -29,7 +29,7 @@ for line in f:
     Expt[instance][algorithm][int(horizon)] += float(REG)/50
 
 for instance in instances:
-    plt.figure()
+    # plt.figure()
     for algorithm in algorithms:
         lists = sorted(Expt[instance][algorithm].items())
         x, y = zip(*lists)
@@ -39,6 +39,9 @@ for instance in instances:
     plt.ylabel("Cumulative Expected Regret")
     plt.title(f"{instance}")
     plt.legend()
-    plt.show()
+    # plt.show()
+    plt.savefig(f"../plots/T{args.n}_instance_{instance[15]}.png")
+    # instance[15] contains 1,2,3
+    plt.close()
 
 f.close()
