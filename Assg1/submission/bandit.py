@@ -22,8 +22,8 @@ def main():
     args = parser.parse_args() # Read args from terminal
     args.epsilon = float(args.epsilon)
     args.horizon = int(args.horizon)
+    args.randomSeed = int(args.randomSeed)
 
-    # Setting seed for random. It accepts string.
     random.seed(args.randomSeed)
 
     reward_means = []
