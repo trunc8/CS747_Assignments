@@ -10,11 +10,12 @@ def pull_arm(reward_means, arm):
     '''
     return (random.uniform(0,1) < reward_means[arm])
 
-def soln(reward_means, horizon, num_of_arms):
+def soln(reward_means, horizon, num_of_arms, randomSeed):
     '''
     If multiple arms have highest empirical mean, use the index returned by argmax
     No Round Robin exploration
     '''
+    np.random.seed(randomSeed)
     beta_samples = np.empty(num_of_arms)
     arm_successes = np.zeros(num_of_arms)
     arm_fails = np.zeros(num_of_arms)
@@ -22,7 +23,7 @@ def soln(reward_means, horizon, num_of_arms):
     REG = 0
     for t in range(1, horizon+1):
         for a in range(num_of_arms):
-            beta_samples[a] = random.betavariate(arm_successes[a]+1, arm_fails[a]+1)
+            beta_samples[a] = np.random.beta(arm_successes[a]+1, arm_fails[a]+1)
         arm = np.argmax(beta_samples)
         if pull_arm(reward_means, arm) == 1:
             arm_successes[arm] += 1
