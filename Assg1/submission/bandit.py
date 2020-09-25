@@ -44,9 +44,10 @@ def main():
     elif args.algorithm == "kl-ucb":
         REG = kl_ucb.soln(reward_means, args.horizon, num_of_arms)
     elif args.algorithm == "thompson-sampling":
-        REG = thompson_no_hint.soln(reward_means, args.horizon, num_of_arms)
+        REG = thompson_no_hint.soln(reward_means, args.horizon, num_of_arms, args.randomSeed)
     elif args.algorithm == "thompson-sampling-with-hint":
-        REG = thompson_with_hint.soln(reward_means, args.horizon, num_of_arms)
+        hint_ls = np.sort(reward_means)
+        REG = thompson_with_hint.soln(reward_means, args.horizon, num_of_arms, hint_ls)
     print(f"{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {REG:.3f}")
 
 if __name__=='__main__':
