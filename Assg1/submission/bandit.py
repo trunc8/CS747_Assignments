@@ -47,7 +47,7 @@ def main():
         REG = thompson_no_hint.soln(reward_means, args.horizon, num_of_arms, args.randomSeed)
     elif args.algorithm == "thompson-sampling-with-hint":
         hint_ls = np.sort(reward_means)
-        REG = thompson_with_hint.soln(reward_means, args.horizon, num_of_arms, hint_ls)
+        REG = thompson_with_hint.soln(reward_means, args.horizon, num_of_arms, hint_ls, args.randomSeed)
     print(f"{args.instance}, {args.algorithm}, {args.randomSeed}, {args.epsilon}, {args.horizon}, {REG:.3f}")
 
 if __name__=='__main__':
