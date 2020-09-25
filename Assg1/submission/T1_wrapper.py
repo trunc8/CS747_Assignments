@@ -27,7 +27,7 @@ for instance in instances:
                     p = subprocess.Popen(cmd.split(), shell=False, stdout=f)
                 except:
                     print("Error occurred")
-                # p.wait()
+                p.wait()
             curr = time.time()
             print(f"Time elapsed:{curr - start:.2f}s\tsince last", 
                 f"print:{curr - prev:.2f}s\t{instance}\t{algorithm}\t{horizon}")
