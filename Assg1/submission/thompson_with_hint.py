@@ -17,24 +17,28 @@ def soln(reward_means, horizon, num_of_arms, hint_ls, randomSeed):
     No Round Robin exploration
     '''
     np.random.seed(randomSeed)
-    hint = np.min(hint_ls)
-    # hint = 0
-    beta_samples = np.empty(num_of_arms)
-    arm_successes = np.zeros(num_of_arms)
-    arm_fails = np.zeros(num_of_arms)
+    
+    # Each column label symbolises hint_ls in that order
+    # Each row label symbolises an arm (order is different and unknown from hint_ls)
+    confidence = np.empty([num_of_arms, num_of_arms])
+    confidence.fill(1.0/num_of_arms)
+
     REW = 0
     REG = 0
     for t in range(1, horizon+1):
-        for a in range(num_of_arms):
-            if t > horizon*0.75 and arm_successes[a]/(arm_successes[a]+arm_fails[a]+1) < hint and random.uniform(0,1) < 0.5:
-              beta_samples[a] = 0
-              continue
-            beta_samples[a] = np.random.beta(arm_successes[a]+1, arm_fails[a]+1)
-        arm = np.argmax(beta_samples)
+
+        # Utilising hint to gain confidence since we now know the discrete values it could be
+        arm = np.argmax(confidence[:,-1])
+
         if pull_arm(reward_means, arm) == 1:
-            arm_successes[arm] += 1
             REW += 1
+            for i in range(num_of_arms):
+                confidence[arm,i] = hint_ls[i]*confidence[arm,i]
         else:
-            arm_fails[arm] += 1
+            for i in range(num_of_arms):
+                confidence[arm,i] = (1 - hint_ls[i])*confidence[arm,i]
+        normalising_sum = sum(confidence[arm,:])
+        confidence[arm,:] = confidence[arm,:]/normalising_sum
+
     REG = horizon*max(reward_means) - REW
     return REG
