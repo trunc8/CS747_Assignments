@@ -12,9 +12,8 @@ def pull_arm(reward_means, arm):
 
 def soln(reward_means, epsilon, horizon, num_of_arms):
     '''
-    Initialise pulls so far with 1's for each arm
     If multiple arms have highest empirical mean, use the index returned by argmax
-    One cycle of round robin exploration
+    One cycle of round robin exploration. Thus initialise pulls so far with 1's for each arm.
     '''
     empirical_means = np.empty(num_of_arms)
     arm_pulls = np.ones(num_of_arms)

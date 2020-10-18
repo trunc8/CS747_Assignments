@@ -1,0 +1,44 @@
+REFERENCES FILA
+
+Cmd argument
+https://stackabuse.com/command-line-arguments-in-python/
+Read file
+https://www.w3schools.com/python/python_file_open.asp
+Find index of max value
+https://numpy.org/doc/stable/reference/generated/numpy.argmax.html
+Empty numpy array
+https://www.w3resource.com/numpy/array-creation/empty.php?passed=passed
+Random integer
+https://www.w3schools.com/python/ref_random_randint.asp
+Multi-line imports
+https://stackoverflow.com/questions/15011367/python-module-import-single-line-vs-multi-line/15011456
+Set random seed across multiple files
+https://stackoverflow.com/questions/11526975/set-random-seed-programwide-in-python/11527011
+Beta distribution
+https://docs.python.org/3/library/random.html#random.betavariate
+Choosing between random and np.random
+https://stackoverflow.com/questions/7029993/differences-between-numpy-random-and-random-random-in-python
+Subprocess
+https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
+Write from subprocess to a file
+https://stackoverflow.com/questions/4856583/how-do-i-pipe-a-subprocess-call-to-a-text-file#:~:text=If%20you%20want%20to%20write,object%20or%20a%20file%20descriptor.
+Measure elapsed time
+https://stackoverflow.com/questions/7370801/how-to-measure-elapsed-time-in-python
+Replace instead of appending to file
+https://stackoverflow.com/questions/11469228/replace-and-overwrite-instead-of-appending/11469328#11469328
+Spliting using delimiter
+https://www.w3schools.com/python/ref_string_split.asp
+Log scale in pyplot
+https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.yscale.html
+Plotting dict with pyplot
+https://stackoverflow.com/questions/37266341/plotting-a-python-dict-in-order-of-key-values/37266356
+Multple lines with legend in same pyplot
+https://www.w3resource.com/graphics/matplotlib/basic/matplotlib-basic-exercise-5.php?passed=passed
+Save figure in matplotlib
+https://chartio.com/resources/tutorials/how-to-save-a-plot-to-a-file-using-matplotlib/
+Multiprocessing
+https://stackoverflow.com/questions/14533458/python-threading-multiple-bash-subprocesses
+Shell tools
+https://www.folkstalk.com/2013/03/sed-remove-lines-file-unix-examples.html
+Fill all elements with same value in nd array
+https://www.geeksforgeeks.org/numpy-ndarray-fill-in-python/
