@@ -18,3 +18,23 @@ Pulp syntax
 https://github.com/coin-or/pulp
 Debugging pulp.lpdot()
 https://stackoverflow.com/questions/57309541/pulp-what-does-lpdot-does-how-to-use-it
+How to use logging
+https://stackoverflow.com/questions/12223204/switching-off-debug-prints
+Toggle logging output
+https://stackoverflow.com/questions/2266646/how-to-disable-and-re-enable-console-logging-in-python
+Disable logging specifically for pulp
+https://www.tutorialspoint.com/How-to-disable-logging-from-imported-modules-in-Python
+Format time in logging message
+https://stackoverflow.com/a/23874319/7589046
+Equality constraint in pulp
+https://www.coin-or.org/PuLP/constants.html
+Element wise multiplication
+https://www.geeksforgeeks.org/numpy-multiply-in-python/
+Sum along an axis
+https://numpy.org/doc/stable/reference/generated/numpy.sum.html
+Max along an axis
+https://numpy.org/doc/stable/reference/generated/numpy.amax.html
+Argument of max
+https://numpy.org/doc/stable/reference/generated/numpy.argmax.html
+Python list comprehensions
+https://blog.teamtreehouse.com/python-single-line-loops

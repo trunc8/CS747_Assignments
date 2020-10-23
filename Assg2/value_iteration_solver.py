@@ -3,46 +3,31 @@
 # trunc8 did this
 
 import numpy as np
+import logging
 
-def soln(S, A, R, T, gamma):
-  V = np.zeros(S)
-  Policy = np.zeros(S)
-
-  eps = 1e-15
-
+def soln(R, T, gamma):
+  logging.debug("Value Iteration started")
+  V = np.zeros(R.shape[0])
+  eps = 1e-12
   timestep = 1
-  V_next = np.zeros(S)
+
   while True:
-    for s in range(S):
-      maxm_value = float('-inf')
-      # Maximize value over all actions
-      for a in range(A):
-        value = 0
-        for s_dash in T[s][a]:
-          value += T[s][a][s_dash]*(R[s][a][s_dash] + gamma*V[s_dash])
-        maxm_value = max(maxm_value, value)
-      V_next[s] = maxm_value
+    V_next = np.amax(np.sum(np.multiply(T, R + gamma*V), axis=2), axis=1)
 
     if np.linalg.norm(V_next - V) < eps:
-      break # Success
+      logging.debug("Value Iteration [OK]")
+      break
+
     V[:] = V_next
+
     timestep += 1
     if timestep > 1e15:
-      print("Too many timesteps. Please check")
+      logging.error("Value Iteration [FAILED]")
       break
+  logging.debug(f"{timestep} iterations taken")
   # Unless we had a timeout, V is now V*
   
   # Finding policy*
-  for s in range(S):
-    maxm_action_value = float('-inf')
-    maxm_action = 0
-    for a in range(A):
-      action_value = 0
-      for s_dash in T[s][a]:
-        action_value += T[s][a][s_dash]*(R[s][a][s_dash] + gamma*V[s_dash])
-      if action_value > maxm_action_value:
-        maxm_action_value = action_value
-        maxm_action = a
-    Policy[s] = maxm_action
+  Policy = np.argmax(np.sum(np.multiply(T, R + gamma*V), axis=2), axis=1)
 
   return V, Policy
