@@ -10,9 +10,14 @@ def soln(R, T, gamma):
   V = np.zeros(R.shape[0])
   eps = 1e-12
   timestep = 1
+  S = R.shape[0]
+
+  # valid_action_values = np.sum(T, axis=2)
+  # logging.debug(f"Valid action values: {valid_action_values}")
 
   while True:
-    V_next = np.amax(np.sum(np.multiply(T, R + gamma*V), axis=2), axis=1)
+    action_values = np.sum(np.multiply(T, R + gamma*V), axis=2)
+    V_next = np.amax(action_values, axis=1)
 
     if np.linalg.norm(V_next - V) < eps:
       logging.debug("Value Iteration [OK]")
@@ -21,7 +26,7 @@ def soln(R, T, gamma):
     V[:] = V_next
 
     timestep += 1
-    if timestep > 1e15:
+    if timestep > 1e5:
       logging.error("Value Iteration [FAILED]")
       break
   logging.debug(f"{timestep} iterations taken")
