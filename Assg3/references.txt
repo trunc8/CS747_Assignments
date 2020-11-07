@@ -1,0 +1,2 @@
+Unpack list to variables
+https://stackoverflow.com/questions/34308337/unpack-list-to-variables
