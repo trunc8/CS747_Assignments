@@ -57,10 +57,6 @@ def runSarsaZero(actions_list,
       target = reward + gamma*Q[next_state[0], next_state[1], next_action]
       Q[curr_state[0], curr_state[1], action] += alpha*(target - Q[curr_state[0], curr_state[1], action])
       
-      #Debug
-      if (time_step < 50):
-        logging.debug(f"\t\t\tQ_updated: {Q[curr_state[0], curr_state[1]]}")
-      
       curr_state = next_state[:]
       action = next_action
       if (next_state == goal_state):

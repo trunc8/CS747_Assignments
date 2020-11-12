@@ -5,8 +5,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
-import logging
-import sys
 import sarsa_zero
 
 # top left corner of gridworld is (0,0)
@@ -18,11 +16,6 @@ import sarsa_zero
 # y_max = 6
 # start_state = [3, 0]
 # goal_state = [3, 7]
-# action_names = {0: "Right",
-#   1: "Down",
-#   2: "Left",
-#   3: "Up"
-#   }
 # alpha = 0.5
 # gamma = 1 # Undiscounted episodic task
 
@@ -32,7 +25,7 @@ def main():
     1: [1,0],
     2: [0,-1],
     3: [-1,0]
-    } # Order: Right, Down, Left, Up
+    } # Order: E, S, W, N
   king_actions = {0: [0,1],
     1: [1,1],
     2: [1,0],
@@ -76,10 +69,6 @@ def main():
   plt.show()
 
 if __name__ == '__main__':
-  logging.basicConfig(level=logging.DEBUG, format='%(levelname)s %(asctime)s.%(msecs)03d %(message)s', datefmt='%H:%M:%S')
-  logging.getLogger('matplotlib').setLevel(logging.WARNING)
-  # Below is a toggle switch for logging messages
-  logging.disable(sys.maxsize)
   random.seed(0)
   np.random.seed(0)
   main()
