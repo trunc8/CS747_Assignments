@@ -13,18 +13,18 @@ import sarsa_zero
 # x increases towards right
 # y increases towards bottom
 
-wind_strength = [0, 0, 0, 1, 1, 1, 2, 2, 1, 0]
-x_max = 9  # Note: Counting from 0
-y_max = 6
-start_state = [3, 0]
-goal_state = [3, 7]
-action_names = {0: "Right",
-  1: "Down",
-  2: "Left",
-  3: "Up"
-  }
-alpha = 0.5
-gamma = 1 # Undiscounted episodic task
+# wind_strength = [0, 0, 0, 1, 1, 1, 2, 2, 1, 0]
+# x_max = 9  # Note: Counting from 0
+# y_max = 6
+# start_state = [3, 0]
+# goal_state = [3, 7]
+# action_names = {0: "Right",
+#   1: "Down",
+#   2: "Left",
+#   3: "Up"
+#   }
+# alpha = 0.5
+# gamma = 1 # Undiscounted episodic task
 
 
 def main():
@@ -42,8 +42,8 @@ def main():
     6: [-1,0],
     7: [-1,1]
     } # Order: E, SE, S, SW, W, NW, N, NE
-  max_time_step = 8000
-  num_of_runs = 10
+  max_time_step = 8000 # Time horizon to count episodes
+  num_of_runs = 10 # Number of runs to average over
   
   # Sarsa(0) with four actions
   episode_count_four_actions = np.zeros(max_time_step+1)

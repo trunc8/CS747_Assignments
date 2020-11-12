@@ -7,8 +7,6 @@ import random
 import logging
 import sys
 import windy_gridworld
-import stochastic_windy_gridworld
-
 
 def runSarsaZero(actions_list, 
     stochasticity = False, 
@@ -18,17 +16,19 @@ def runSarsaZero(actions_list,
     start_state = [3, 0], 
     goal_state = [3, 7], 
     max_time_step = 8000, 
+    epsilon = 0.1,
     alpha = 0.5, 
     gamma = 1
     ):
-  epsilon = 0.1
+
+  # Initializing all variables
   episodes = np.zeros(max_time_step+1)
   time_step = 0
-  episodes[0] = 0
-  Q = np.zeros([y_max+1, x_max+1, len(actions_list)])
   prev_timestep = 0
+  Q = np.zeros([y_max+1, x_max+1, len(actions_list)]) 
+  action = 0
   while(time_step < max_time_step):
-    action = 0
+    # START OF A NEW EPISODE
     curr_state = start_state
     if (random.uniform(0, 1.0) < epsilon):
       action = random.randint(0,len(actions_list)-1)
@@ -38,21 +38,13 @@ def runSarsaZero(actions_list,
       #     np.isclose(actions_from_curr_state, actions_from_curr_state.max())))
       action = np.argmax(Q[curr_state[0], curr_state[1], :])
 
-    while(curr_state != goal_state):
+    while(True):
+      # 
       time_step += 1
       if (time_step > max_time_step):
         break
-      
-      #Debug
-      if (time_step < 50):
-        # logging.debug(f"t={time_step}\tCurr_state: {curr_state}\t{action_names[action]}")
-        logging.debug(f"\t\t\tQ: {Q[curr_state[0], curr_state[1]]}")
-      if stochasticity:
-        next_state, reward = stochastic_windy_gridworld.obtainNextStateAndReward(curr_state, 
-          action, actions_list, wind_strength, x_max, y_max, goal_state)
-      else:
-        next_state, reward = windy_gridworld.obtainNextStateAndReward(curr_state, 
-          action, actions_list, wind_strength, x_max, y_max, goal_state)
+      next_state, reward = windy_gridworld.obtainNextStateAndReward(curr_state, 
+        action, actions_list, stochasticity)
       next_action = 0
       if (random.uniform(0, 1.0) < epsilon):
         next_action = random.randint(0,len(actions_list)-1)
