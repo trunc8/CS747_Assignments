@@ -6,7 +6,7 @@ import numpy as np
 import random
 import windy_gridworld
 
-def runSarsaZero(actions_list, 
+def runExpectedSarsa(actions_list, 
     stochasticity = False, 
     wind_strength = [0, 0, 0, 1, 1, 1, 2, 2, 1, 0], 
     x_max = 9, 
@@ -51,8 +51,13 @@ def runSarsaZero(actions_list,
         # next_action = np.random.choice(np.flatnonzero(
         #   actions_from_next_state==actions_from_next_state.max()))
         next_action = np.argmax(Q[next_state[0], next_state[1], :])
+
+      action_probabilities = np.full(len(actions_list), epsilon/len(actions_list))
+      actions_from_next_state = Q[next_state[0], next_state[1], :]
+      max_indices = np.flatnonzero(actions_from_next_state==actions_from_next_state.max())
+      action_probabilities[max_indices] += (1-epsilon)/len(max_indices)
       
-      target = reward + gamma*Q[next_state[0], next_state[1], next_action]
+      target = reward + gamma*np.sum(np.dot(action_probabilities, Q[next_state[0], next_state[1], :]))
       Q[curr_state[0], curr_state[1], action] += alpha*(target - Q[curr_state[0], curr_state[1], action])
       
       curr_state = next_state[:]
