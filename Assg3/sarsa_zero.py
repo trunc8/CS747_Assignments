@@ -3,46 +3,28 @@
 # trunc8 did this
 
 import numpy as np
-import matplotlib.pyplot as plt
 import random
 import logging
 import sys
 import windy_gridworld
-
-# top left corner of gridworld is (0,0)
-# x increases towards right
-# y increases towards bottom
-
-wind_strength = [0, 0, 0, 1, 1, 1, 2, 2, 1, 0]
-x_max = 9  # Note: Counting from 0
-y_max = 6
-start_state = [3, 0]
-goal_state = [3, 7]
-action_names = {0: "Right",
-  1: "Down",
-  2: "Left",
-  3: "Up"
-  }
-four_actions = {0: [0,1],
-  1: [1,0],
-  2: [0,-1],
-  3: [-1,0]
-  } # Order: Right, Down, Left, Up
-# king_actions = {0: [0,1],}
-alpha = 0.5
-gamma = 1 # Undiscounted episodic task
-max_time_step = 8000
-
-random.seed(0)
-np.random.seed(0)
+import stochastic_windy_gridworld
 
 
-def runSarsaZero():
+def runSarsaZero(actions_list, 
+    stochasticity = False, 
+    wind_strength = [0, 0, 0, 1, 1, 1, 2, 2, 1, 0], 
+    x_max = 9, 
+    y_max = 6, 
+    start_state = [3, 0], 
+    goal_state = [3, 7], 
+    max_time_step = 8000, 
+    alpha = 0.5, 
+    gamma = 1
+    ):
   epsilon = 0.1
   episodes = np.zeros(max_time_step+1)
   time_step = 0
   episodes[0] = 0
-  actions_list = four_actions
   Q = np.zeros([y_max+1, x_max+1, len(actions_list)])
   prev_timestep = 0
   while(time_step < max_time_step):
@@ -60,23 +42,33 @@ def runSarsaZero():
       time_step += 1
       if (time_step > max_time_step):
         break
+      
+      #Debug
       if (time_step < 50):
-        logging.debug(f"t={time_step}\tCurr_state: {curr_state}\t{action_names[action]}")
+        # logging.debug(f"t={time_step}\tCurr_state: {curr_state}\t{action_names[action]}")
         logging.debug(f"\t\t\tQ: {Q[curr_state[0], curr_state[1]]}")
-      next_state, reward = windy_gridworld.obtainNextStateAndReward(curr_state, 
-        action, actions_list, wind_strength, x_max, y_max, goal_state)
+      if stochasticity:
+        next_state, reward = stochastic_windy_gridworld.obtainNextStateAndReward(curr_state, 
+          action, actions_list, wind_strength, x_max, y_max, goal_state)
+      else:
+        next_state, reward = windy_gridworld.obtainNextStateAndReward(curr_state, 
+          action, actions_list, wind_strength, x_max, y_max, goal_state)
       next_action = 0
       if (random.uniform(0, 1.0) < epsilon):
         next_action = random.randint(0,len(actions_list)-1)
       else:
-        actions_from_next_state = Q[next_state[0], next_state[1], :]
+        # actions_from_next_state = Q[next_state[0], next_state[1], :]
         # next_action = np.random.choice(np.flatnonzero(
         #   actions_from_next_state==actions_from_next_state.max()))
         next_action = np.argmax(Q[next_state[0], next_state[1], :])
-      Q[curr_state[0], curr_state[1], action] += alpha*(reward + 
-        gamma*Q[next_state[0], next_state[1], next_action] - Q[curr_state[0], curr_state[1], action])
+      
+      target = reward + gamma*Q[next_state[0], next_state[1], next_action]
+      Q[curr_state[0], curr_state[1], action] += alpha*(target - Q[curr_state[0], curr_state[1], action])
+      
+      #Debug
       if (time_step < 50):
         logging.debug(f"\t\t\tQ_updated: {Q[curr_state[0], curr_state[1]]}")
+      
       curr_state = next_state[:]
       action = next_action
       if (next_state == goal_state):
@@ -87,18 +79,3 @@ def runSarsaZero():
       else:
         episodes[time_step] = episodes[time_step-1]
   return episodes
-
-def plotEpisodes():
-  episodes = np.zeros(max_time_step+1)
-  num_of_runs = 10
-  for i in range(num_of_runs):
-    logging.debug(f"Round {i}")
-    episodes += (1.0/num_of_runs)*runSarsaZero()
-  plt.plot(episodes)
-  plt.show()
-
-logging.basicConfig(level=logging.DEBUG, format='%(levelname)s %(asctime)s.%(msecs)03d %(message)s', datefmt='%H:%M:%S')
-logging.getLogger('matplotlib').setLevel(logging.WARNING)
-# Below is a toggle switch for logging messages
-logging.disable(sys.maxsize)
-plotEpisodes()
