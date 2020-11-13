@@ -15,18 +15,22 @@ def obtainNextStateAndReward(curr_state,
   y, x = curr_state # Assuming current state is valid
   wind_effect = wind_strength[x]
   if stochasticity == True:
-    wind_effect = wind_effect + random.randint(-1,1)
+    wind_effect = wind_effect + random.randint(-1,1)*(wind_effect!=0)
   reward = -1
   
   # Allowing maximum movement
   x_new = x + actions_list[action][1]
   y_new = y + actions_list[action][0] - wind_effect
 
+  if x_new < 0 or x_new > x_max or y_new < 0 or y_new > y_max:
+    reward = -1 # Changed this to -100 for experimentation
+
   # But preventing from escaping grid
   x_new = min(x_new, x_max)
   x_new = max(x_new, 0)
   y_new = min(y_new, y_max)
   y_new = max(y_new, 0)
+
 
   if (x_new == goal_state[1] and y_new == goal_state[0]):
     return goal_state, -1
