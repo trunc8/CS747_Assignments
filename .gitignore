@@ -1,9 +1,3 @@
-# Own ignores
-plots/
-outputDataT1.txt
-outputDataT2.txt
-
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
