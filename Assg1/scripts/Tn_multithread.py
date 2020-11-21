@@ -27,8 +27,8 @@ instances = ["../instances/i-1.txt", "../instances/i-2.txt", "../instances/i-3.t
 if args.n == '1':
   algorithms = ["epsilon-greedy", "ucb", "kl-ucb", "thompson-sampling"]
 elif args.n == '2':
-  # algorithms = ["thompson-sampling", "thompson-sampling-with-hint"]
-  algorithms = ["thompson-sampling-with-hint"]
+  algorithms = ["thompson-sampling", "thompson-sampling-with-hint"]
+  # algorithms = ["thompson-sampling-with-hint"]
 
 commands = []
 
@@ -42,7 +42,7 @@ for instance in instances:
                 cmd = f"python bandit.py --instance {instance} --algorithm {algorithm} --randomSeed {randomSeed} --epsilon {epsilon} --horizon {horizon}"
                 commands.append(cmd)
 
-n = 40
+n = 20
 pool = Pool(n) # n concurrent commands at a time
 for i, returncode in enumerate(pool.imap(partial(call, shell=True, stdout=f), commands)):
     if returncode != 0:
