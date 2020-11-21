@@ -26,7 +26,7 @@ def soln(R, T, gamma):
     V[:] = V_next
 
     timestep += 1
-    if timestep > 1e5:
+    if timestep > 1e10:
       logging.error("Value Iteration [FAILED]")
       break
   logging.debug(f"{timestep} iterations taken")
