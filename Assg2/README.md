@@ -1,17 +1,19 @@
-# Assignment 3
+# Assignment 2
 
-## Windy Gridworld
+## MDP Planning Algorithms & Solving a Maze using MDPs
 
 ### Python3 Dependencies
 
 1. numpy
 2. matplotlib
+3. pulp
+4. logging
 
 ### How to Run
 
-1. Check that you are in the `Assg3` directory
-2. `python3 main.py`
-3. View the four plots saved into the `Assg3` directory
+1. Check that you are in the `Assg2` directory
+2. `python3 PlannerVerifyOutput.py`
+3. `python3 MazeVerifyOutput.py --algorithm vi`
 
 ### Authors
 
