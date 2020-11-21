@@ -9,9 +9,9 @@
 
 ### How to Run
 
-1. Check that you are in the `Assg3` directory
+1. Check that you are in the `Assg3\scripts` directory
 2. `python3 main.py`
-3. View the four plots saved into the `Assg3` directory
+3. View the four plots saved into the `Assg3\scripts` directory
 
 ### Authors
 

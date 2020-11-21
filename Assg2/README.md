@@ -11,7 +11,7 @@
 
 ### How to Run
 
-1. Check that you are in the `Assg2` directory
+1. Check that you are in the `Assg2/scripts` directory
 2. `python3 PlannerVerifyOutput.py`
 3. `python3 MazeVerifyOutput.py --algorithm vi`
 
